@@ -19,7 +19,7 @@ class App extends React.Component {
       <>
         <Header />
         <NotesListSidebar />
-        <NotesListMain />
+        <NotesListMain data={this.state.dummystore} />
       </>
     );
   }
