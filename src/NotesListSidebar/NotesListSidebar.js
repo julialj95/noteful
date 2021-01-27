@@ -1,12 +1,20 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import "./NotesListSidebar.css";
 class NotesListSidebar extends React.Component {
   render() {
+    const { data } = this.props;
+    const folderList = data.folders.map((folder, index) => (
+      <div className="folder-box">
+        <Link to={`/folder/${folder.id}`} key={index}>
+          {folder.name}
+        </Link>
+        <br />
+      </div>
+    ));
     return (
       <>
-        <h2>Folder 1</h2>
-        <h2>Folder 2</h2>
-        <h2>Folder 3</h2>
+        {folderList}
         <button>+ Add New Folder</button>
       </>
     );

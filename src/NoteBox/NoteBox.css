@@ -1,0 +1,13 @@
+.notebox {
+  border: solid 2px black;
+  display: flex;
+  flex-direction: row;
+}
+.bottom-row {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+}
+h1 {
+  flex: 1;
+}

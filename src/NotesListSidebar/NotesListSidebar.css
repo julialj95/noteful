@@ -1,1 +1,6 @@
-
+.folder-box {
+  border: solid 2px black;
+  text-align: center;
+  width: 70%;
+  background-color: lightblue;
+}

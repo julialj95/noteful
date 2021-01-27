@@ -1,15 +1,13 @@
 import React from "react";
+import NoteBox from "../NoteBox/Notebox";
 
 class NoteItemMain extends React.Component {
   render() {
+    const { content } = this.props;
     return (
       <>
-        <div className="note-box">
-          <h1>Note Title</h1>
-          <p>Date created</p>
-          <button>Delete Note</button>
-        </div>
-        <p>Note content</p>
+        <NoteBox />
+        <p>{content}</p>
       </>
     );
   }

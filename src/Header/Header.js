@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <header>
-      <Link to={"/"}>Noteful</Link>
+      <h1>
+        <Link to={"/"}>Noteful</Link>
+      </h1>
     </header>
   );
 }
