@@ -13,7 +13,12 @@ class NotesListMain extends React.Component {
         id={item.id}
       />
     ));
-    return <div className="noteslist">{filteredNotes}</div>;
+    return (
+      <>
+        <div className="noteslist">{filteredNotes}</div>
+        <button>Add new note +</button>
+      </>
+    );
   }
 }
 

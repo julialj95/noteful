@@ -66,7 +66,7 @@ class App extends React.Component {
     const folderMatch = this.state.dummystore.folders.find(
       (folder) => folder.id === folderId
     );
-    return folderMatch.name;
+    return folderMatch;
   }
 
   renderSidebar() {
@@ -100,8 +100,14 @@ class App extends React.Component {
           render={(routeProps) => {
             const { noteId } = routeProps.match.params;
             const note = this.findNoteMatch(noteId);
-            const folderName = this.findFolderMatch(note);
-            return <NoteItemSidebar {...routeProps} folderName={folderName} />;
+            const folderMatch = this.findFolderMatch(note);
+            return (
+              <NoteItemSidebar
+                {...routeProps}
+                folderName={folderMatch.name}
+                folderId={folderMatch.id}
+              />
+            );
           }}
         />
       </>

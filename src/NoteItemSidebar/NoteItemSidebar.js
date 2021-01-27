@@ -1,12 +1,13 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 class NoteItemSidebar extends React.Component {
   render() {
-    const { folderName } = this.props;
+    const { folderName, folderId } = this.props;
     return (
       <>
         <button>Go Back</button>
-        <h1>{folderName}</h1>
+        <NavLink to={`/folder/${folderId}`}>{folderName}</NavLink>
       </>
     );
   }
