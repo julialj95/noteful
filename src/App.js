@@ -6,6 +6,7 @@ import dummystore from "./dummystore";
 import NotesListSidebar from "./NotesListSidebar/NotesListSidebar";
 import NotesListMain from "./NotesListMain/NotesListMain";
 import NoteItemSidebar from "./NoteItemSidebar/NoteItemSidebar";
+import NoteItemMain from "./NoteItemMain/NoteItemMain";
 
 // function findFolderMatch(folderId) {
 //   const folderMatch = this.state.dummystore.folders.find(
@@ -57,6 +58,16 @@ class App extends React.Component {
     );
     return noteMatch;
   }
+  findFolderMatch(note) {
+    const noteItem = this.state.dummystore.notes.find(
+      (item) => item.id === note.id
+    );
+    const folderId = noteItem.folderId;
+    const folderMatch = this.state.dummystore.folders.find(
+      (folder) => folder.id === folderId
+    );
+    return folderMatch.name;
+  }
 
   renderSidebar() {
     return (
@@ -64,12 +75,9 @@ class App extends React.Component {
         <Route
           exact
           path={"/"}
-          render={() => (
-            <NotesListSidebar
-              folders={this.state.dummystore.folders}
-              notes={this.state.dummystore.notes}
-            />
-          )}
+          render={() => {
+            return <NotesListSidebar folders={this.state.dummystore.folders} />;
+          }}
         />
 
         <Route
@@ -77,12 +85,11 @@ class App extends React.Component {
           path={"/folder/:folderId"}
           render={(routeProps) => {
             const { folderId } = routeProps.match.params;
-            const notesInFolder = this.findNotesForFolder(folderId);
             return (
               <NotesListSidebar
                 {...routeProps}
+                selectedFolder={folderId}
                 folders={this.state.dummystore.folders}
-                notes={notesInFolder}
               />
             );
           }}
@@ -93,13 +100,13 @@ class App extends React.Component {
           render={(routeProps) => {
             const { noteId } = routeProps.match.params;
             const note = this.findNoteMatch(noteId);
-            return <NoteItemSidebar {...routeProps} note={note} />;
+            const folderName = this.findFolderMatch(note);
+            return <NoteItemSidebar {...routeProps} folderName={folderName} />;
           }}
         />
       </>
     );
   }
-  // const folder = findFolderMatch(folderId);
   renderMain() {
     return (
       <>
@@ -118,6 +125,15 @@ class App extends React.Component {
           }}
         />
         ;
+        <Route
+          exact
+          path={"/note/:noteId"}
+          render={(routeProps) => {
+            const { noteId } = routeProps.match.params;
+            const noteContent = this.findNoteMatch(noteId);
+            return <NoteItemMain {...routeProps} note={noteContent} />;
+          }}
+        />
       </>
     );
   }
