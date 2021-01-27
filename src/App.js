@@ -147,10 +147,12 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Header />
         <div className="main-content">
           <div className="sidebar">{this.renderSidebar()}</div>
-          <div className="main-list">{this.renderMain()}</div>
+          <div className="main-list">
+            <Header />
+            {this.renderMain()}
+          </div>
         </div>
       </>
     );

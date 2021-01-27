@@ -1,0 +1,16 @@
+.note-item-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20%;
+}
+.back-button {
+  width: 20%;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.folder-name {
+  font-size: 24px;
+  margin-left: 20px;
+}

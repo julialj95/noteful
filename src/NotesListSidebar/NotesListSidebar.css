@@ -3,14 +3,22 @@
   text-align: center;
   width: 70%;
   background-color: lightblue;
-}
-.highlighted-folder-box {
-  border: solid 2px black;
-  text-align: center;
-  width: 70%;
-  background-color: green;
+  margin: 5px;
+  padding: 5px;
+  font-size: 26px;
 }
 
 NavLink {
   background-color: lightblue;
+}
+.notes-sidebar {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.add-folder-button {
+  width: 20%;
+  height: 40px;
+  margin-left: 27%;
 }

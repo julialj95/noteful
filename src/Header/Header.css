@@ -1,1 +1,11 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
+.header-link {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px 0 10px 10px;
+}
