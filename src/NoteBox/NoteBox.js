@@ -6,7 +6,7 @@ class NoteBox extends React.Component {
   render() {
     const { title, date, id } = this.props;
     return (
-      <div class="notebox">
+      <div className="notebox">
         <Link to={`/note/${id}`}>{title}</Link>
         <div className="bottom-row">
           <p>{date}</p>

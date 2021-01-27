@@ -3,11 +3,10 @@ import NoteBox from "../NoteBox/NoteBox";
 
 class NotesListMain extends React.Component {
   render() {
-    const { data } = this.props;
-    const notes = data.notes.filter(
-      (note) => note.folderId === selectedFolder.id
-    );
-    //figure out selected folder
+    // const { notesList } = this.props;
+    const { notes } = this.props;
+    console.log(notes);
+
     const filteredNotes = notes.map((item, index) => (
       <NoteBox
         key={index}
