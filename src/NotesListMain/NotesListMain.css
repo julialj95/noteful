@@ -1,0 +1,14 @@
+.add-button {
+  width: 20%;
+  height: 40px;
+  margin: 7px auto 10px 70%;
+}
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  background-color: lightblue;
+}
+
+.noteslist {
+  flex: 1;
+}

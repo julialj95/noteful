@@ -130,7 +130,7 @@ class App extends React.Component {
             return <NotesListMain {...routeProps} notes={notesList} />;
           }}
         />
-        ;
+
         <Route
           exact
           path={"/note/:noteId"}
@@ -143,8 +143,6 @@ class App extends React.Component {
       </>
     );
   }
-
-  // notes={notesForFolder}
 
   render() {
     return (

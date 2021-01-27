@@ -1,5 +1,6 @@
 import React from "react";
 import NoteBox from "../NoteBox/NoteBox";
+import "./NotesListMain.css";
 
 class NotesListMain extends React.Component {
   render() {
@@ -14,10 +15,10 @@ class NotesListMain extends React.Component {
       />
     ));
     return (
-      <>
+      <div className="notes-container">
         <div className="noteslist">{filteredNotes}</div>
-        <button>Add new note +</button>
-      </>
+        <button className="add-button">Add new note +</button>
+      </div>
     );
   }
 }

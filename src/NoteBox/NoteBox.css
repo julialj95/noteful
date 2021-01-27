@@ -1,13 +1,27 @@
 .notebox {
   border: solid 2px black;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px;
+}
+.top-row {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 24px;
 }
 .bottom-row {
   display: flex;
   flex-direction: row;
-  align-content: space-around;
+  justify-content: space-between;
+}
+.item {
+  flex-grow: 1;
 }
 h1 {
   flex: 1;
+}
+.delete-button {
+  width: 20%;
+  height: 40px;
 }

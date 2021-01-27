@@ -9,10 +9,12 @@ class NoteBox extends React.Component {
     const formattedDate = dateObject.toDateString();
     return (
       <div className="notebox">
-        <Link to={`/note/${id}`}>{title}</Link>
+        <div className="top-row">
+          <Link to={`/note/${id}`}>{title}</Link>
+        </div>
         <div className="bottom-row">
-          <p>Date modified: {formattedDate}</p>
-          <button>Delete Note</button>
+          <p className="item">Date modified: {formattedDate}</p>
+          <button className="item, delete-button">Delete Note</button>
         </div>
       </div>
     );
