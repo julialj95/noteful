@@ -5,8 +5,6 @@ class NotesListMain extends React.Component {
   render() {
     // const { notesList } = this.props;
     const { notes } = this.props;
-    console.log(notes);
-
     const filteredNotes = notes.map((item, index) => (
       <NoteBox
         key={index}
