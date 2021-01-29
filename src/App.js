@@ -7,30 +7,8 @@ import NotesListSidebar from "./NotesListSidebar/NotesListSidebar";
 import NotesListMain from "./NotesListMain/NotesListMain";
 import NoteItemSidebar from "./NoteItemSidebar/NoteItemSidebar";
 import NoteItemMain from "./NoteItemMain/NoteItemMain";
+import NotefulContext from "./NotefulContext";
 
-// function findFolderMatch(folderId) {
-//   const folderMatch = this.state.dummystore.folders.find(
-//     (folder) => folder.id === folderId
-//   );
-//   return folderMatch;
-// }
-
-// function findNotesForFolder(folderId) {
-//   let filteredNotes = [];
-//   const noteArray = dummystore.notes.map((note) => {
-//     if (note.folderId === folderId) {
-//       filteredNotes.push(note);
-//     }
-//     return filteredNotes;
-//   });
-//   return noteArray;
-// }
-// function findNotesForFolder(folderId) {
-//   const notes = !folderId
-//     ? this.state.dummyprops.notes
-//     : this.state.dummyprops.notes.filter((note) => note.folderId === folderId);
-//   return notes;
-// }
 class App extends React.Component {
   constructor() {
     super();
@@ -88,7 +66,7 @@ class App extends React.Component {
             return (
               <NotesListSidebar
                 {...routeProps}
-                selectedFolder={folderId}
+                selectedFolderId={folderId}
                 folders={this.state.dummystore.folders}
               />
             );
