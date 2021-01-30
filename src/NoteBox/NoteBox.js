@@ -24,29 +24,26 @@ function deleteNoteRequest(noteId, callback) {
     .catch((error) => console.log(error));
 }
 class NoteBox extends React.Component {
+  static contextType = NotefulContext;
   render() {
     const { title, date, id } = this.props;
     const dateObject = new Date(date);
     const formattedDate = dateObject.toDateString();
     return (
-      <NotefulContext.Consumer>
-        {(context) => {
-          <div className="notebox">
-            <div className="top-row">
-              <Link to={`/note/${id}`}>{title}</Link>
-            </div>
-            <div className="bottom-row">
-              <p className="item">Date modified: {formattedDate}</p>
-              <button
-                className="item delete-button"
-                onClick={() => deleteNoteRequest(id, context.deleteNote)}
-              >
-                Delete Note
-              </button>
-            </div>
-          </div>;
-        }}
-      </NotefulContext.Consumer>
+      <div className="notebox">
+        <div className="top-row">
+          <Link to={`/note/${id}`}>{title}</Link>
+        </div>
+        <div className="bottom-row">
+          <p className="item">Date modified: {formattedDate}</p>
+          <button
+            className="item delete-button"
+            onClick={() => deleteNoteRequest(id, this.context.deleteNote)}
+          >
+            Delete Note
+          </button>
+        </div>
+      </div>
     );
   }
 }

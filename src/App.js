@@ -17,6 +17,7 @@ class App extends React.Component {
     };
     this.renderSidebar = this.renderSidebar.bind(this);
     this.renderMain = this.renderMain.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
     // this.findNotesForFolder = this.findNotesForFolder.bind(this);
     // this.findNoteMatch = this.findNoteMatch.bind(this);
   }
