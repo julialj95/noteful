@@ -12,6 +12,11 @@ class NoteItemMain extends React.Component {
     return noteMatch;
   }
 
+  handleDeleteNote = (noteId) => {
+    if (this.props.match.id === noteId) {
+      this.props.history.push("/");
+    }
+  };
   render() {
     const { noteId } = this.props.match.params;
     const selectedNote = this.findNoteMatch(noteId);
@@ -21,6 +26,7 @@ class NoteItemMain extends React.Component {
           title={selectedNote.name}
           id={selectedNote.id}
           date={selectedNote.modified}
+          onDeleteNote={this.handleDeleteNote}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>

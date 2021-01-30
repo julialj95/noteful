@@ -3,32 +3,47 @@ import { Link } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
 import "./NoteBox.css";
 
-function deleteNoteRequest(noteId, callback) {
-  fetch(`http://localhost:9090/notes/${noteId}`, {
-    method: "DELETE",
-    headers: {
-      "content-type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        return response.json().then((error) => {
-          throw error;
-        });
-      }
-      return response.json();
-    })
-    .then((data) => {
-      callback(noteId);
-    })
-    .catch((error) => console.log(error));
-}
+// function onClickFunctions(id, contextDelete, redirectDeleteFunction) {
+//   deleteNoteRequest(id, contextDelete);
+//   redirectDeleteFunction();
+// }
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
+
+  deleteNoteRequest(event, noteId, callback) {
+    event.preventDefault();
+    fetch(`http://localhost:9090/notes/${noteId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            throw error;
+          });
+        }
+        return response.json();
+      })
+      .then(() => {
+        callback(noteId);
+      })
+
+      .catch((error) => console.log(error));
+  }
+
+  clickFunctions(event, onDeleteNote, id, contextDeleteNote) {
+    this.deleteNoteRequest(event, id, contextDeleteNote);
+    onDeleteNote();
+  }
+
   render() {
-    const { title, date, id } = this.props;
+    const { title, date, id, onDeleteNote } = this.props;
     const dateObject = new Date(date);
     const formattedDate = dateObject.toDateString();
+    const contextDeleteNote = this.context.deleteNote;
+
     return (
       <div className="notebox">
         <div className="top-row">
@@ -38,7 +53,12 @@ class NoteBox extends React.Component {
           <p className="item">Date modified: {formattedDate}</p>
           <button
             className="item delete-button"
-            onClick={() => deleteNoteRequest(id, this.context.deleteNote)}
+            onClick={
+              (event) =>
+                this.clickFunctions(event, onDeleteNote, id, contextDeleteNote)
+              // this.deleteNoteRequest(event, id, this.context.deleteNote)
+            }
+            // onClick={() => deleteNote}
           >
             Delete Note
           </button>

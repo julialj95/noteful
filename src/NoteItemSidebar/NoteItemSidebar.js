@@ -21,8 +21,8 @@ class NoteItemSidebar extends React.Component {
 
   render() {
     const { noteId } = this.props.match.params;
-    const note = this.findNoteMatch(noteId);
-    const matchedFolder = this.findFolderMatch(note);
+    const note = this.findNoteMatch(noteId) || {};
+    const matchedFolder = this.findFolderMatch(note) || {};
     const folderId = matchedFolder.id;
     return (
       <div className="note-item-sidebar">
