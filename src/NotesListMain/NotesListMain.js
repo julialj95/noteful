@@ -2,9 +2,16 @@ import React from "react";
 import NoteBox from "../NoteBox/NoteBox";
 import "./NotesListMain.css";
 import NotefulContext from "../NotefulContext";
+import AddNote from "../AddNote/AddNote";
 
 class NotesListMain extends React.Component {
   static contextType = NotefulContext;
+  constructor() {
+    super();
+    this.state = {
+      noteFormVisible: false,
+    };
+  }
 
   findNotesForFolder(folderId) {
     const { notes } = this.context;
@@ -29,6 +36,7 @@ class NotesListMain extends React.Component {
       <div className="notes-container">
         <div className="noteslist">{filteredNotes}</div>
         <button className="add-button">Add new note +</button>
+        <AddNote />
       </div>
     );
   }

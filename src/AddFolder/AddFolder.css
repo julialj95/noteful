@@ -1,0 +1,11 @@
+.folderForm {
+  border: solid 2px black;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.hidden {
+  display: none;
+}

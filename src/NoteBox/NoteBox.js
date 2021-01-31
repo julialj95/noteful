@@ -10,7 +10,8 @@ import "./NoteBox.css";
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
 
-  deleteNoteRequest(event, noteId, callback) {
+  deleteNoteRequest = (event) => {
+    const noteId = this.props.id;
     event.preventDefault();
     fetch(`http://localhost:9090/notes/${noteId}`, {
       method: "DELETE",
@@ -27,22 +28,25 @@ class NoteBox extends React.Component {
         return response.json();
       })
       .then(() => {
-        callback(noteId);
+        Promise.all([
+          this.context.deleteNote(noteId),
+          this.props.onDeleteNote(noteId),
+        ]);
       })
 
       .catch((error) => console.log(error));
-  }
+  };
 
-  clickFunctions(event, onDeleteNote, id, contextDeleteNote) {
-    this.deleteNoteRequest(event, id, contextDeleteNote);
-    onDeleteNote();
-  }
+  // clickFunctions(event, onDeleteNote, id, contextDeleteNote) {
+  //   this.deleteNoteRequest(event, id, contextDeleteNote);
+  //   this.props.match.params === id ? onDeleteNote : null;
+  // }
 
   render() {
-    const { title, date, id, onDeleteNote } = this.props;
+    const { title, date, id } = this.props;
     const dateObject = new Date(date);
     const formattedDate = dateObject.toDateString();
-    const contextDeleteNote = this.context.deleteNote;
+    // const contextDeleteNote = this.context.deleteNote;
 
     return (
       <div className="notebox">
@@ -53,10 +57,9 @@ class NoteBox extends React.Component {
           <p className="item">Date modified: {formattedDate}</p>
           <button
             className="item delete-button"
-            onClick={
-              (event) =>
-                this.clickFunctions(event, onDeleteNote, id, contextDeleteNote)
-              // this.deleteNoteRequest(event, id, this.context.deleteNote)
+            onClick={(event) =>
+              // this.clickFunctions(event, onDeleteNote, id, contextDeleteNote)
+              this.deleteNoteRequest(event)
             }
             // onClick={() => deleteNote}
           >

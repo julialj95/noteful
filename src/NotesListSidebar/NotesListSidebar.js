@@ -2,7 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./NotesListSidebar.css";
 import NotefulContext from "../NotefulContext";
+import AddFolder from "../AddFolder/AddFolder";
 class NotesListSidebar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isFormVisible: false,
+    };
+  }
   static contextType = NotefulContext;
   render() {
     const { folders } = this.context;
@@ -30,7 +37,13 @@ class NotesListSidebar extends React.Component {
     return (
       <div className="notes-sidebar">
         {folderList}
-        <button className="add-folder-button">+ Add New Folder</button>
+        <button
+          className="add-folder-button"
+          onClick={() => this.setState({ isFormVisible: true })}
+        >
+          + Add New Folder
+        </button>
+        {this.state.isFormVisible ? <AddFolder /> : null}
       </div>
     );
   }

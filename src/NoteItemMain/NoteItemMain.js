@@ -12,10 +12,8 @@ class NoteItemMain extends React.Component {
     return noteMatch;
   }
 
-  handleDeleteNote = (noteId) => {
-    if (this.props.match.id === noteId) {
-      this.props.history.push("/");
-    }
+  handleDeleteNote = () => {
+    this.props.history.push("/");
   };
   render() {
     const { noteId } = this.props.match.params;
