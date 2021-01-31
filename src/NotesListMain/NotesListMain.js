@@ -35,8 +35,13 @@ class NotesListMain extends React.Component {
     return (
       <div className="notes-container">
         <div className="noteslist">{filteredNotes}</div>
-        <button className="add-button">Add new note +</button>
-        <AddNote />
+        <button
+          className="add-button"
+          onClick={() => this.setState({ noteFormVisible: true })}
+        >
+          Add new note +
+        </button>
+        {this.state.noteFormVisible ? <AddNote /> : null}
       </div>
     );
   }

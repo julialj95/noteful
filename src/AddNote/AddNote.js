@@ -1,5 +1,6 @@
 import React from "react";
 import NotefulContext from "../NotefulContext";
+import "./AddNote.css";
 
 class AddNote extends React.Component {
   static contextType = NotefulContext;
@@ -9,25 +10,37 @@ class AddNote extends React.Component {
       noteFormVisible: false,
       newNoteName: "",
       newNoteContent: "Type note here...",
-      newNoteModified: "",
-      selectedFolder: "",
+      selectedFolderId: "",
     };
     this.createNewNote = this.createNewNote.bind(this);
   }
 
-  createNewNote(event) {
-    event.preventDefault();
-    const matchedFolder = this.context.folders.filter(
-      (folder) => folder.name === this.state.selectedFolder
-    );
-    console.log(matchedFolder);
+  createNewNote() {
+    const today = new Date();
+    const date =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate();
+    const time =
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds() +
+      ":" +
+      today.getMilliseconds();
+    const dateTime = new Date(date + " " + time);
+    const modified = dateTime.toISOString();
+
     fetch("http://localhost:9090/notes/", {
       method: "post",
       body: JSON.stringify({
         name: this.state.newNoteName,
-        modified: this.state.newNoteModified,
+        modified: modified,
         content: this.state.newNoteContent,
-        folderId: matchedFolder.id,
+        folderId: this.state.selectedFolderId,
       }),
       headers: {
         "content-type": "application/json",
@@ -40,7 +53,7 @@ class AddNote extends React.Component {
     return (
       <div className="noteForm">
         <h2>Add New Note</h2>
-        <form onSubmit={(event) => this.createNewNote(event)}>
+        <form onSubmit={() => this.createNewNote()}>
           <label htmlFor="noteName">Note Name:</label>
           <input
             type="text"
@@ -64,12 +77,12 @@ class AddNote extends React.Component {
           <br />
           <select
             onChange={(event) =>
-              this.setState({ selectedFolder: event.target.value })
+              this.setState({ selectedFolderId: event.target.value })
             }
           >
             {this.context.folders.map((folder) => {
               return (
-                <option key={folder.name} value={folder.name}>
+                <option key={folder.name} value={folder.id}>
                   {folder.name}
                 </option>
               );
