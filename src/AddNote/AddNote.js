@@ -1,6 +1,7 @@
 import React from "react";
 import NotefulContext from "../NotefulContext";
 import "./AddNote.css";
+import ValidationError from "../ValidationError";
 
 class AddNote extends React.Component {
   static contextType = NotefulContext;
@@ -49,6 +50,20 @@ class AddNote extends React.Component {
     });
   }
 
+  validateNoteTitle() {
+    const noteTitle = this.state.newNoteName.trim();
+    if (noteTitle.length === 0) {
+      return "Please enter a note name";
+    }
+  }
+
+  validateNoteContent() {
+    const noteContent = this.state.newNoteContent.trim();
+    if (noteContent.length === 0) {
+      return "Please enter note content";
+    }
+  }
+
   render() {
     return (
       <div className="noteForm">
@@ -63,6 +78,7 @@ class AddNote extends React.Component {
               this.setState({ newNoteName: event.target.value })
             }
           />
+          <ValidationError message={this.validateNoteTitle()} />
           <br />
 
           <label>
@@ -73,21 +89,26 @@ class AddNote extends React.Component {
                 this.setState({ newNoteContent: event.target.value })
               }
             />
+            <ValidationError message={this.validateNoteContent()} />
           </label>
           <br />
-          <select
-            onChange={(event) =>
-              this.setState({ selectedFolderId: event.target.value })
-            }
-          >
-            {this.context.folders.map((folder) => {
-              return (
-                <option key={folder.name} value={folder.id}>
-                  {folder.name}
-                </option>
-              );
-            })}
-          </select>
+          <label>
+            Select Folder:
+            <select
+              onChange={(event) =>
+                this.setState({ selectedFolderId: event.target.value })
+              }
+            >
+              {this.context.folders.map((folder) => {
+                return (
+                  <option key={folder.name} value={folder.id}>
+                    {folder.name}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
+          <br />
 
           <button type="submit">Create Note</button>
         </form>

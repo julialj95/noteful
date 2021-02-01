@@ -24,6 +24,7 @@ class NotesListMain extends React.Component {
   render() {
     const { folderId } = this.props.match.params;
     const notesList = this.findNotesForFolder(folderId) || {};
+    console.log(this.props.match.path);
     const filteredNotes = notesList.map((item, index) => (
       <NoteBox
         key={index}

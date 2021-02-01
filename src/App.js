@@ -18,8 +18,7 @@ class App extends React.Component {
     this.renderSidebar = this.renderSidebar.bind(this);
     this.renderMain = this.renderMain.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
-    // this.findNotesForFolder = this.findNotesForFolder.bind(this);
-    // this.findNoteMatch = this.findNoteMatch.bind(this);
+    // this.redirectOnDelete = this.redirectOnDelete.bind(this);
   }
 
   deleteNote(noteId) {
@@ -27,25 +26,10 @@ class App extends React.Component {
     this.setState({ notes: newNotesList });
   }
 
-  // findNotesForFolder(folderId) {
-  //   const notes = !folderId
-  //     ? this.state.notes
-  //     : this.state.notes.filter((note) => note.folderId === folderId);
-  //   return notes;
-  // }
-
-  // findNoteMatch(noteId) {
-  //   const noteMatch = this.state.notes.find((note) => note.id === noteId);
-  //   return noteMatch;
-  // }
-
-  // findFolderMatch(note) {
-  //   const noteItem = this.state.notes.find((item) => item.id === note.id);
-  //   const folderId = noteItem.folderId;
-  //   const folderMatch = this.state.folders.find(
-  //     (folder) => folder.id === folderId
-  //   );
-  //   return folderMatch;
+  // redirectOnDelete() {
+  //   if (this.props.match.path === "/note/:noteId") {
+  //     this.props.history.push("/");
+  //   }
   // }
 
   componentDidMount() {
@@ -68,80 +52,22 @@ class App extends React.Component {
   renderSidebar() {
     return (
       <>
-        <Route
-          exact
-          path={"/"}
-          component={NotesListSidebar}
-          // render={() => {
-          //   return <NotesListSidebar folders={this.state.folders} />;
-          // }}
-        />
+        <Route exact path={"/"} component={NotesListSidebar} />
 
-        <Route
-          exact
-          path={"/folder/:folderId"}
-          component={NotesListSidebar}
-          // render={(routeProps) => {
-          //   const { folderId } = routeProps.match.params;
-          //   return (
-          //     <NotesListSidebar
-          //       {...routeProps}
-          //       selectedFolderId={folderId}
-          //       folders={this.state.folders}
-          //     />
-          //   );
-          // }}
-        />
-        <Route
-          exact
-          path={"/note/:noteId"}
-          component={NoteItemSidebar}
-          // render={(routeProps) => {
-          //   const { noteId } = routeProps.match.params;
-          //   const note = this.findNoteMatch(noteId);
-          //   const folderMatch = this.findFolderMatch(note);
-          //   return (
-          //     <NoteItemSidebar
-          //       {...routeProps}
-          //       folderName={folderMatch.name}
-          //       folderId={folderMatch.id}
-          //     />
-          //   );
-          // }}
-        />
+        <Route exact path={"/folder/:folderId"} component={NotesListSidebar} />
+
+        <Route exact path={"/note/:noteId"} component={NoteItemSidebar} />
       </>
     );
   }
   renderMain() {
     return (
       <>
-        <Route
-          exact
-          path={"/"}
-          component={NotesListMain}
-          // render={() => <NotesListMain notes={this.state.notes} />}
-        />
-        <Route
-          exact
-          path={`/folder/:folderId`}
-          component={NotesListMain}
-          // render={(routeProps) => {
-          //   const { folderId } = routeProps.match.params;
-          //   const notesList = this.findNotesForFolder(folderId);
-          //   return <NotesListMain {...routeProps} notes={notesList} />;
-          // }}
-        />
+        <Route exact path={"/"} component={NotesListMain} />
 
-        <Route
-          exact
-          path={"/note/:noteId"}
-          component={NoteItemMain}
-          // render={(routeProps) => {
-          //   const { noteId } = routeProps.match.params;
-          //   const noteContent = this.findNoteMatch(noteId);
-          //   return <NoteItemMain {...routeProps} note={noteContent} />;
-          // }}
-        />
+        <Route exact path={`/folder/:folderId`} component={NotesListMain} />
+
+        <Route exact path={"/note/:noteId"} component={NoteItemMain} />
       </>
     );
   }
@@ -151,6 +77,7 @@ class App extends React.Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
+      // redirectOnDelete: this.redirectOnDelete,
     };
     return (
       <>

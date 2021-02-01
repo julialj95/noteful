@@ -2,51 +2,62 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
 import "./NoteBox.css";
-
-// function onClickFunctions(id, contextDelete, redirectDeleteFunction) {
-//   deleteNoteRequest(id, contextDelete);
-//   redirectDeleteFunction();
-// }
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
 
-  deleteNoteRequest = (event) => {
+  // deleteNoteRequest = () => {
+  //   const noteId = this.props.id;
+  //   fetch(`http://localhost:9090/notes/${noteId}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   })
+  //     .then(() => {
+  //       // Promise.all([this.context.deleteNote(), this.props.redirectOnDelete]);
+  //       this.context.deleteNote(noteId);
+  //     })
+
+  //     .catch((error) => console.log(error));
+  // };
+  deleteNoteRequest = () => {
+    // e.preventDefault();
     const noteId = this.props.id;
-    event.preventDefault();
+
     fetch(`http://localhost:9090/notes/${noteId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
       },
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw error;
-          });
-        }
-        return response.json();
+      .then((res) => {
+        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        return res.json();
       })
       .then(() => {
-        Promise.all([
-          this.context.deleteNote(noteId),
-          this.props.onDeleteNote(noteId),
-        ]);
+        this.context.deleteNote(noteId);
+
+        // Promise.all([
+        //   this.context.deleteNote(noteId),
+        //   this.props.redirectOnDelete(),
+        // ]).then(([responseOne, responseTwo]) => {
+        //   if (!responseOne.ok)
+        //     return responseOne.json().then((e) => Promise.reject(e));
+        //   if (!responseTwo.ok)
+        //     return responseTwo.json().then((e) => Promise.reject(e));
+        //   return [responseOne.json(), responseTwo.json()];
       })
 
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error({ error });
+      });
   };
-
-  // clickFunctions(event, onDeleteNote, id, contextDeleteNote) {
-  //   this.deleteNoteRequest(event, id, contextDeleteNote);
-  //   this.props.match.params === id ? onDeleteNote : null;
-  // }
 
   render() {
     const { title, date, id } = this.props;
     const dateObject = new Date(date);
     const formattedDate = dateObject.toDateString();
-    // const contextDeleteNote = this.context.deleteNote;
+    // const { redirectOnDelete } = this.props;
 
     return (
       <div className="notebox">
@@ -57,11 +68,8 @@ class NoteBox extends React.Component {
           <p className="item">Date modified: {formattedDate}</p>
           <button
             className="item delete-button"
-            onClick={(event) =>
-              // this.clickFunctions(event, onDeleteNote, id, contextDeleteNote)
-              this.deleteNoteRequest(event)
-            }
-            // onClick={() => deleteNote}
+            // onClick={redirectOnDelete}
+            onClick={this.deleteNoteRequest}
           >
             Delete Note
           </button>

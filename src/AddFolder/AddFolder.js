@@ -1,5 +1,6 @@
 import React from "react";
 import "./AddFolder.css";
+import ValidationError from "../ValidationError";
 
 class AddFolder extends React.Component {
   constructor() {
@@ -21,6 +22,13 @@ class AddFolder extends React.Component {
       },
     });
   }
+
+  validateFolderName() {
+    const folderName = this.state.newFolderName.trim();
+    if (folderName.length === 0) {
+      return "Please enter a folder name";
+    }
+  }
   render() {
     return (
       <div className="folderForm">
@@ -35,6 +43,7 @@ class AddFolder extends React.Component {
               this.setState({ newFolderName: event.target.value })
             }
           />
+          <ValidationError message={this.validateFolderName()} />
           <br />
 
           <button type="submit">Create Folder</button>

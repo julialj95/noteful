@@ -12,19 +12,23 @@ class NoteItemMain extends React.Component {
     return noteMatch;
   }
 
-  handleDeleteNote = () => {
+  redirectOnDelete = () => {
     this.props.history.push("/");
   };
+
   render() {
     const { noteId } = this.props.match.params;
+    console.log(noteId);
     const selectedNote = this.findNoteMatch(noteId);
+    console.log(this.props.history);
+    console.log(this.props.match.path);
     return (
       <div className="note-item-main">
         <NoteBox
           title={selectedNote.name}
           id={selectedNote.id}
           date={selectedNote.modified}
-          onDeleteNote={this.handleDeleteNote}
+          redirectOnDelete={this.redirectOnDelete}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>
