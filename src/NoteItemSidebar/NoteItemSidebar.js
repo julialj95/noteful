@@ -21,10 +21,15 @@ class NoteItemSidebar extends React.Component {
 
   render() {
     const { noteId } = this.props.match.params;
-    const note = this.findNoteMatch(noteId) || {};
-    const matchedFolder = this.findFolderMatch(note) || {};
-    const folderId = matchedFolder.id;
-    return (
+    const note = this.findNoteMatch(noteId);
+    let matchedFolder;
+    let folderId;
+    if (note) {
+      matchedFolder = this.findFolderMatch(note);
+      folderId = matchedFolder.id;
+    }
+
+    return note ? (
       <div className="note-item-sidebar">
         <button className="back-button">Go Back</button>
         <br />
@@ -32,7 +37,7 @@ class NoteItemSidebar extends React.Component {
           {matchedFolder.name}
         </NavLink>
       </div>
-    );
+    ) : null;
   }
 }
 

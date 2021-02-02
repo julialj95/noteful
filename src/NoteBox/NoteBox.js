@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
 import "./NoteBox.css";
 import PropTypes from "prop-types";
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
+
+  // redirectOnDelete = () => {
+  //   // if (this.props.path === "/note/:noteId") {
+  //     this.props.history.push('/')
+
+  // };
 
   deleteNoteRequest = () => {
     // e.preventDefault();
@@ -21,13 +27,14 @@ class NoteBox extends React.Component {
         return res.json();
       })
       .then(() => {
-        // return Promise.all([
-        //   this.context.deleteNote(noteId),
-        //   this.redirectOnDelete,
-        // ]);
-        this.context.deleteNote(noteId);
-        // this.props.redirectOnDelete;
+        return this.props.history.push("/");
       })
+      .then(() => {
+        // this.props.history.push("/");
+        this.context.deleteNote(noteId);
+      })
+      // this.context.deleteNote(noteId);
+      // this.redirectOnDelete();
 
       .catch((error) => {
         console.error({ error });
@@ -60,10 +67,10 @@ class NoteBox extends React.Component {
   }
 }
 NoteBox.propTypes = {
-  redirectOnDelete: PropTypes.func.isRequired,
+  // redirectOnDelete: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
 };
 
-export default NoteBox;
+export default withRouter(NoteBox);

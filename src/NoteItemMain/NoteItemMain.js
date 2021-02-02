@@ -18,16 +18,19 @@ class NoteItemMain extends React.Component {
 
   render() {
     const { noteId } = this.props.match.params;
-    console.log(noteId);
     const selectedNote = this.findNoteMatch(noteId);
+    const path = this.props.match.path;
 
-    return (
+    return !selectedNote ? (
+      <h1>This note does not exist.</h1>
+    ) : (
       <div className="note-item-main">
         <NoteBox
           title={selectedNote.name}
           id={selectedNote.id}
           date={selectedNote.modified}
           redirectOnDelete={this.redirectOnDelete}
+          path={path}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>
