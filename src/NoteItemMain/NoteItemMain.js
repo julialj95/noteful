@@ -13,15 +13,14 @@ class NoteItemMain extends React.Component {
   }
 
   redirectOnDelete = () => {
-    this.props.history.push("/");
+    return this.props.history.push("/");
   };
 
   render() {
     const { noteId } = this.props.match.params;
     console.log(noteId);
     const selectedNote = this.findNoteMatch(noteId);
-    console.log(this.props.history);
-    console.log(this.props.match.path);
+
     return (
       <div className="note-item-main">
         <NoteBox
@@ -35,4 +34,5 @@ class NoteItemMain extends React.Component {
     );
   }
 }
+
 export default NoteItemMain;

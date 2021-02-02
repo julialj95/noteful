@@ -7,6 +7,7 @@ import NotesListMain from "./NotesListMain/NotesListMain";
 import NoteItemSidebar from "./NoteItemSidebar/NoteItemSidebar";
 import NoteItemMain from "./NoteItemMain/NoteItemMain";
 import NotefulContext from "./NotefulContext";
+import ErrorComponent from "./ErrorComponent";
 
 class App extends React.Component {
   constructor() {
@@ -52,22 +53,34 @@ class App extends React.Component {
   renderSidebar() {
     return (
       <>
-        <Route exact path={"/"} component={NotesListSidebar} />
-
-        <Route exact path={"/folder/:folderId"} component={NotesListSidebar} />
-
-        <Route exact path={"/note/:noteId"} component={NoteItemSidebar} />
+        <ErrorComponent>
+          <Route exact path={"/"} component={NotesListSidebar} />
+        </ErrorComponent>
+        <ErrorComponent>
+          <Route
+            exact
+            path={"/folder/:folderId"}
+            component={NotesListSidebar}
+          />
+        </ErrorComponent>
+        <ErrorComponent>
+          <Route exact path={"/note/:noteId"} component={NoteItemSidebar} />
+        </ErrorComponent>
       </>
     );
   }
   renderMain() {
     return (
       <>
-        <Route exact path={"/"} component={NotesListMain} />
-
-        <Route exact path={`/folder/:folderId`} component={NotesListMain} />
-
-        <Route exact path={"/note/:noteId"} component={NoteItemMain} />
+        <ErrorComponent>
+          <Route exact path={"/"} component={NotesListMain} />
+        </ErrorComponent>
+        <ErrorComponent>
+          <Route exact path={`/folder/:folderId`} component={NotesListMain} />
+        </ErrorComponent>
+        <ErrorComponent>
+          <Route exact path={"/note/:noteId"} component={NoteItemMain} />
+        </ErrorComponent>
       </>
     );
   }

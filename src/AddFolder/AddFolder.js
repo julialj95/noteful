@@ -7,6 +7,7 @@ class AddFolder extends React.Component {
     super();
     this.state = {
       newFolderName: "",
+      touched: false,
     };
     this.createNewFolder = this.createNewFolder.bind(this);
   }
@@ -29,6 +30,7 @@ class AddFolder extends React.Component {
       return "Please enter a folder name";
     }
   }
+
   render() {
     return (
       <div className="folderForm">
@@ -40,10 +42,15 @@ class AddFolder extends React.Component {
             name="folderName"
             id="folderName"
             onChange={(event) =>
-              this.setState({ newFolderName: event.target.value })
+              this.setState({
+                newFolderName: event.target.value,
+                touched: true,
+              })
             }
           />
-          <ValidationError message={this.validateFolderName()} />
+          {this.state.touched && (
+            <ValidationError message={this.validateFolderName()} />
+          )}
           <br />
 
           <button type="submit">Create Folder</button>

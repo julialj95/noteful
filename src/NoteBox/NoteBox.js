@@ -2,24 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NotefulContext from "../NotefulContext";
 import "./NoteBox.css";
+import PropTypes from "prop-types";
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
 
-  // deleteNoteRequest = () => {
-  //   const noteId = this.props.id;
-  //   fetch(`http://localhost:9090/notes/${noteId}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //   })
-  //     .then(() => {
-  //       // Promise.all([this.context.deleteNote(), this.props.redirectOnDelete]);
-  //       this.context.deleteNote(noteId);
-  //     })
-
-  //     .catch((error) => console.log(error));
-  // };
   deleteNoteRequest = () => {
     // e.preventDefault();
     const noteId = this.props.id;
@@ -35,17 +21,12 @@ class NoteBox extends React.Component {
         return res.json();
       })
       .then(() => {
-        this.context.deleteNote(noteId);
-
-        // Promise.all([
+        // return Promise.all([
         //   this.context.deleteNote(noteId),
-        //   this.props.redirectOnDelete(),
-        // ]).then(([responseOne, responseTwo]) => {
-        //   if (!responseOne.ok)
-        //     return responseOne.json().then((e) => Promise.reject(e));
-        //   if (!responseTwo.ok)
-        //     return responseTwo.json().then((e) => Promise.reject(e));
-        //   return [responseOne.json(), responseTwo.json()];
+        //   this.redirectOnDelete,
+        // ]);
+        this.context.deleteNote(noteId);
+        // this.props.redirectOnDelete;
       })
 
       .catch((error) => {
@@ -78,4 +59,11 @@ class NoteBox extends React.Component {
     );
   }
 }
+NoteBox.propTypes = {
+  redirectOnDelete: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+};
+
 export default NoteBox;

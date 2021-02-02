@@ -5,12 +5,21 @@ import ValidationError from "../ValidationError";
 
 class AddNote extends React.Component {
   static contextType = NotefulContext;
+
   constructor() {
     super();
     this.state = {
       noteFormVisible: false,
+      // newNoteName: {
+      //   value: "",
+      //   touched: false,
+      // },
       newNoteName: "",
-      newNoteContent: "Type note here...",
+      // newNoteContent: {
+      //   value: "Type note here...",
+      //   touched: false,
+      // },
+      newNoteContent: "",
       selectedFolderId: "",
     };
     this.createNewNote = this.createNewNote.bind(this);
@@ -63,6 +72,11 @@ class AddNote extends React.Component {
       return "Please enter note content";
     }
   }
+  validateFolderId() {
+    if (this.state.selectedFolderId === "") {
+      return "Please select a folder";
+    }
+  }
 
   render() {
     return (
@@ -75,10 +89,14 @@ class AddNote extends React.Component {
             name="noteName"
             id="noteName"
             onChange={(event) =>
-              this.setState({ newNoteName: event.target.value })
+              this.setState({
+                newNoteName: event.target.value,
+              })
             }
           />
+          {/* {this.state.newNoteName.touched && ( */}
           <ValidationError message={this.validateNoteTitle()} />
+          {/* )} */}
           <br />
 
           <label>
@@ -86,27 +104,34 @@ class AddNote extends React.Component {
             <textarea
               value={this.state.newNoteContent}
               onChange={(event) =>
-                this.setState({ newNoteContent: event.target.value })
+                this.setState({
+                  newNoteContent: event.target.value,
+                })
               }
             />
+            {/* {this.state.newNoteContent.touched && ( */}
             <ValidationError message={this.validateNoteContent()} />
+            {/* )} */}
           </label>
           <br />
           <label>
             Select Folder:
             <select
+              value={this.state.selectedFolderId}
               onChange={(event) =>
                 this.setState({ selectedFolderId: event.target.value })
               }
             >
+              <option value={""}>Select a folder from the list</option>
               {this.context.folders.map((folder) => {
                 return (
-                  <option key={folder.name} value={folder.id}>
+                  <option key={folder.id} value={folder.id}>
                     {folder.name}
                   </option>
                 );
               })}
             </select>
+            <ValidationError message={this.validateFolderId()} />
           </label>
           <br />
 
