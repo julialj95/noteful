@@ -2,7 +2,5 @@
   margin-right: 15px;
 }
 .note-content {
-  margin-left: 10px;
-  margin-right: 5px;
-  margin-top: 25px;
+  margin: 25px 5px 0px 10px;
 }

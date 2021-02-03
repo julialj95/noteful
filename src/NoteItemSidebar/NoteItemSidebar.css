@@ -1,16 +1,23 @@
-.note-item-sidebar {
+.sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: 20%;
+  /* justify-content: center; */
+  /* margin-top: 20%; */
 }
+
+.folder-box {
+  border: solid 2px black;
+  text-align: center;
+  width: 80%;
+  background-color: #457b9d;
+  margin: 10px;
+  padding: 5px;
+  font-size: 26px;
+  color: white;
+}
+
 .back-button {
   width: 20%;
   height: 40px;
-  margin-left: 20px;
-}
-
-.folder-name {
-  font-size: 24px;
   margin-left: 20px;
 }

@@ -1,11 +1,19 @@
 header {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
 }
 
 .header-link {
+  color: #1d3557;
   font-size: 40px;
   font-weight: bold;
   margin: 20px 0 10px 10px;
+}
+.empty {
+  flex: 1;
+}
+
+.header-link {
+  flex: 2;
 }

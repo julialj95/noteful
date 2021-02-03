@@ -19,19 +19,12 @@ class App extends React.Component {
     this.renderSidebar = this.renderSidebar.bind(this);
     this.renderMain = this.renderMain.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
-    // this.redirectOnDelete = this.redirectOnDelete.bind(this);
   }
 
   deleteNote(noteId) {
     const newNotesList = this.state.notes.filter((note) => note.id !== noteId);
     this.setState({ notes: newNotesList });
   }
-
-  // redirectOnDelete() {
-  //   if (this.props.match.path === "/note/:noteId") {
-  //     this.props.history.push("/");
-  //   }
-  // }
 
   componentDidMount() {
     Promise.all([
@@ -90,15 +83,15 @@ class App extends React.Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
-      // redirectOnDelete: this.redirectOnDelete,
     };
     return (
       <>
         <NotefulContext.Provider value={contextValue}>
+          <Header />
           <div className="main-content">
             <div className="sidebar">{this.renderSidebar()}</div>
             <div className="main-list">
-              <Header />
+              {/* <Header /> */}
               {this.renderMain()}
             </div>
           </div>

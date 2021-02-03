@@ -12,14 +12,13 @@ class NoteItemMain extends React.Component {
     return noteMatch;
   }
 
-  redirectOnDelete = () => {
-    return this.props.history.push("/");
-  };
+  // redirectOnDelete = () => {
+  //   return this.props.history.push("/");
+  // };
 
   render() {
     const { noteId } = this.props.match.params;
     const selectedNote = this.findNoteMatch(noteId);
-    const path = this.props.match.path;
 
     return !selectedNote ? (
       <h1>This note does not exist.</h1>
@@ -29,8 +28,8 @@ class NoteItemMain extends React.Component {
           title={selectedNote.name}
           id={selectedNote.id}
           date={selectedNote.modified}
-          redirectOnDelete={this.redirectOnDelete}
-          path={path}
+          // redirectOnDelete={this.redirectOnDelete}
+          // path={path}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>

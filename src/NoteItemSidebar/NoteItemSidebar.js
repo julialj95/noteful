@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import "./NoteItemSidebar.css";
 import NotefulContext from "../NotefulContext";
 class NoteItemSidebar extends React.Component {
@@ -30,17 +30,20 @@ class NoteItemSidebar extends React.Component {
     }
 
     return note ? (
-      <div className="note-item-sidebar">
-        <button className="back-button">Go Back</button>
-        <br />
-        <NavLink to={`/folder/${folderId}`} className="folder-name">
+      <div className="sidebar">
+        <NavLink to={`/folder/${folderId}`} className="folder-box">
           {matchedFolder.name}
         </NavLink>
+        <br />
+        <button
+          className="back-button"
+          onClick={() => this.props.history.push(`/folder/${folderId}`)}
+        >
+          Go Back
+        </button>
       </div>
     ) : null;
   }
 }
 
-export default NoteItemSidebar;
-
-//check find folder match function (may be redundant with folderId and foldermatch basically meaning the same thing?)
+export default withRouter(NoteItemSidebar);

@@ -6,9 +6,14 @@
 .notes-container {
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
+  background-color: #a8dadc;
+  margin-right: 10%;
+  margin-bottom: 10%;
 }
 
+.note-box {
+  background-color: #457b9d;
+}
 .noteslist {
   flex: 1;
 }

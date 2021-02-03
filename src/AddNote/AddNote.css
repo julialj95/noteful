@@ -1,8 +1,46 @@
-.noteForm {
+.add-note-box {
+  width: 80%;
+  background-color: #457b9d;
   border: solid 2px black;
+  margin: 10px auto 10px auto;
+  padding: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.flex-box {
+  display: flex;
+  list-style-type: none;
+}
+
+.input {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 10px;
+}
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row > input {
+  width: 90%;
+}
+
+textarea {
+  width: 90%;
+  height: 100%;
+}
+
+.button-box {
+  display: flex;
+  justify-content: flex-end;
+}
+.submit-button {
+  text-align: center;
   padding: 10px;
+  margin: 10px;
 }

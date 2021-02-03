@@ -2,15 +2,19 @@
   border: solid 2px black;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
   margin: 10px;
+  background-color: #457b9d;
 }
 .top-row {
+  flex-grow: 1;
   display: flex;
   justify-content: flex-start;
   font-size: 24px;
 }
 .bottom-row {
+  flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -22,6 +26,12 @@ h1 {
   flex: 1;
 }
 .delete-button {
-  width: 20%;
+  width: 5%;
   height: 40px;
+}
+.link {
+  color: white;
+}
+.date {
+  color: white;
 }

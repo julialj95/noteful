@@ -36,24 +36,28 @@ class AddFolder extends React.Component {
       <div className="folderForm">
         <h2>Add New Folder</h2>
         <form onSubmit={() => this.createNewFolder()}>
-          <label htmlFor="folderName">Folder Name:</label>
-          <input
-            type="text"
-            name="folderName"
-            id="folderName"
-            onChange={(event) =>
-              this.setState({
-                newFolderName: event.target.value,
-                touched: true,
-              })
-            }
-          />
-          {this.state.touched && (
-            <ValidationError message={this.validateFolderName()} />
-          )}
-          <br />
-
-          <button type="submit">Create Folder</button>
+          <div className="add-folder-item">
+            <label htmlFor="folderName">Folder Name</label>
+            <br />
+            <input
+              type="text"
+              name="folderName"
+              id="folderName"
+              onChange={(event) =>
+                this.setState({
+                  newFolderName: event.target.value,
+                  touched: true,
+                })
+              }
+            />
+            {this.state.touched && (
+              <ValidationError message={this.validateFolderName()} />
+            )}
+          </div>
+          {/* <br /> */}
+          <div className="add-folder-item">
+            <button type="submit">Create Folder</button>
+          </div>
         </form>
       </div>
     );

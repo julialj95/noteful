@@ -4,11 +4,14 @@ import "./Header.css";
 
 function Header() {
   return (
-    <header>
-      <Link to={"/"} className="header-link">
-        Noteful
-      </Link>
-    </header>
+    <>
+      <header>
+        <div className="empty"></div>
+        <Link to={"/"} className="header-link">
+          Noteful
+        </Link>
+      </header>
+    </>
   );
 }
 export default Header;

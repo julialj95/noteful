@@ -19,13 +19,14 @@ class NotesListSidebar extends React.Component {
       return (
         <div
           className={
-            folder.id === folderId ? "folder-box highlighted" : "folder-box"
+            folder.id === folderId ? "folderBox highlighted" : "folderBox"
           }
           key={index}
         >
           <NavLink
             to={`/folder/${folder.id}`}
-            activeStyle={{ color: "white", backgroundColor: "navy" }}
+            className="link"
+            // activeStyle={{ color: "white", backgroundColor: "navy" }}
             key={index}
           >
             {folder.name}
@@ -35,7 +36,7 @@ class NotesListSidebar extends React.Component {
       );
     });
     return (
-      <div className="notes-sidebar">
+      <div className="sidebar">
         {folderList}
         <button
           className="add-folder-button"
