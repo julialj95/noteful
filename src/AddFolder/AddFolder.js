@@ -54,7 +54,6 @@ class AddFolder extends React.Component {
               <ValidationError message={this.validateFolderName()} />
             )}
           </div>
-          {/* <br /> */}
           <div className="add-folder-item">
             <button type="submit">Create Folder</button>
           </div>

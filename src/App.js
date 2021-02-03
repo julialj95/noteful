@@ -90,10 +90,7 @@ class App extends React.Component {
           <Header />
           <div className="main-content">
             <div className="sidebar">{this.renderSidebar()}</div>
-            <div className="main-list">
-              {/* <Header /> */}
-              {this.renderMain()}
-            </div>
+            <div className="main-list">{this.renderMain()}</div>
           </div>
         </NotefulContext.Provider>
       </>

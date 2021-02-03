@@ -12,10 +12,6 @@ class NoteItemMain extends React.Component {
     return noteMatch;
   }
 
-  // redirectOnDelete = () => {
-  //   return this.props.history.push("/");
-  // };
-
   render() {
     const { noteId } = this.props.match.params;
     const selectedNote = this.findNoteMatch(noteId);
@@ -28,8 +24,6 @@ class NoteItemMain extends React.Component {
           title={selectedNote.name}
           id={selectedNote.id}
           date={selectedNote.modified}
-          // redirectOnDelete={this.redirectOnDelete}
-          // path={path}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>

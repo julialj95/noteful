@@ -23,12 +23,7 @@ class NotesListSidebar extends React.Component {
           }
           key={index}
         >
-          <NavLink
-            to={`/folder/${folder.id}`}
-            className="link"
-            // activeStyle={{ color: "white", backgroundColor: "navy" }}
-            key={index}
-          >
+          <NavLink to={`/folder/${folder.id}`} className="link" key={index}>
             {folder.name}
           </NavLink>
           <br />
