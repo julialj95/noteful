@@ -70,10 +70,15 @@ class AddFolder extends React.Component {
                     displayError: false,
                   })
                 }
+                aria-required="true"
+                aria-label="Folder name for new folder"
+                aria-describedby="folder-name-error"
               />
-              {this.state.touched && (
-                <ValidationError message={this.validateFolderName()} />
-              )}
+              <div id="folder-name-error">
+                {this.state.touched && (
+                  <ValidationError message={this.validateFolderName()} />
+                )}
+              </div>
             </div>
             <div className="add-folder-item">
               <button disabled={!isEnabled} type="submit">

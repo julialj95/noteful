@@ -118,10 +118,15 @@ class AddNote extends React.Component {
                         },
                       })
                     }
+                    aria-label="Name for new note"
+                    aria-required="true"
+                    aria-describedby="note-title-error"
                   />
-                  {this.state.newNoteName.touched && (
-                    <ValidationError message={this.validateNoteTitle()} />
-                  )}
+                  <div id="note-title-error">
+                    {this.state.newNoteName.touched && (
+                      <ValidationError message={this.validateNoteTitle()} />
+                    )}
+                  </div>
                 </li>
 
                 <li className="form-row">
@@ -133,11 +138,17 @@ class AddNote extends React.Component {
                       onChange={(event) =>
                         this.setState({ selectedFolderId: event.target.value })
                       }
+                      aria-label="Select a folder from the list"
+                      aria-required="true"
                     >
                       <option value={""}>Select a folder</option>
                       {this.context.folders.map((folder) => {
                         return (
-                          <option key={folder.id} value={folder.id}>
+                          <option
+                            key={folder.id}
+                            value={folder.id}
+                            aria-label={folder.name}
+                          >
                             {folder.name}
                           </option>
                         );
@@ -162,10 +173,15 @@ class AddNote extends React.Component {
                           },
                         })
                       }
+                      aria-label="Content of the new note"
+                      aria-required="false"
+                      aria-describedby="note-content-error"
                     />
-                    {this.state.newNoteContent.touched && (
-                      <ValidationError message={this.validateNoteContent()} />
-                    )}
+                    <div id="note-content-error">
+                      {this.state.newNoteContent.touched && (
+                        <ValidationError message={this.validateNoteContent()} />
+                      )}
+                    </div>
                   </label>
                 </li>
               </div>
