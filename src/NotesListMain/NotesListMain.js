@@ -3,6 +3,8 @@ import NoteBox from "../NoteBox/NoteBox";
 import "./NotesListMain.css";
 import NotefulContext from "../NotefulContext";
 import AddNote from "../AddNote/AddNote";
+import ErrorComponent from "../ErrorComponent";
+import PropTypes from "prop-types";
 
 class NotesListMain extends React.Component {
   static contextType = NotefulContext;
@@ -41,10 +43,16 @@ class NotesListMain extends React.Component {
         >
           Add new note +
         </button>
-        {this.state.noteFormVisible ? <AddNote /> : null}
+        <ErrorComponent>
+          {this.state.noteFormVisible ? <AddNote /> : null}
+        </ErrorComponent>
       </div>
     );
   }
 }
-
+NotesListMain.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object,
+  }),
+};
 export default NotesListMain;

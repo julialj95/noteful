@@ -61,6 +61,10 @@ NoteBox.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    path: PropTypes.string.isRequired,
+  }),
+  history: PropTypes.object.isRequired,
 };
 
 export default withRouter(NoteBox);

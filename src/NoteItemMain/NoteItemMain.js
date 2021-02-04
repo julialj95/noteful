@@ -2,6 +2,7 @@ import React from "react";
 import NoteBox from "../NoteBox/NoteBox";
 import "./NoteItemMain.css";
 import NotefulContext from "../NotefulContext";
+import PropTypes from "prop-types";
 
 class NoteItemMain extends React.Component {
   static contextType = NotefulContext;
@@ -30,5 +31,10 @@ class NoteItemMain extends React.Component {
     );
   }
 }
+NoteItemMain.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }),
+};
 
 export default NoteItemMain;

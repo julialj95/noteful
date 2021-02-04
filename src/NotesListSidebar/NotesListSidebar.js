@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./NotesListSidebar.css";
 import NotefulContext from "../NotefulContext";
 import AddFolder from "../AddFolder/AddFolder";
+import PropTypes from "prop-types";
 class NotesListSidebar extends React.Component {
   constructor() {
     super();
@@ -11,6 +12,7 @@ class NotesListSidebar extends React.Component {
     };
   }
   static contextType = NotefulContext;
+
   render() {
     const { folders } = this.context;
     const { folderId } = this.props.match.params;
@@ -45,4 +47,9 @@ class NotesListSidebar extends React.Component {
   }
 }
 
+NotesListSidebar.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }),
+};
 export default NotesListSidebar;

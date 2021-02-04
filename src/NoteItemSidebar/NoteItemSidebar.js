@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import "./NoteItemSidebar.css";
 import NotefulContext from "../NotefulContext";
+import PropTypes from "prop-types";
 class NoteItemSidebar extends React.Component {
   static contextType = NotefulContext;
 
@@ -46,4 +47,10 @@ class NoteItemSidebar extends React.Component {
   }
 }
 
+NoteItemSidebar.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }),
+  history: PropTypes.object.isRequired,
+};
 export default withRouter(NoteItemSidebar);

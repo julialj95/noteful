@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import NotefulContext from "../NotefulContext";
 import "./AddNote.css";
 import ValidationError from "../ValidationError";
@@ -19,11 +19,13 @@ class AddNote extends React.Component {
         touched: false,
       },
       selectedFolderId: "",
+      displayError: false,
     };
     this.createNewNote = this.createNewNote.bind(this);
   }
 
-  createNewNote() {
+  createNewNote(event) {
+    event.preventDefault();
     const today = new Date();
     const date =
       today.getFullYear() +
@@ -54,7 +56,17 @@ class AddNote extends React.Component {
         "content-type": "application/json",
         Accept: "application/json",
       },
-    });
+    })
+      .then((response) => {
+        if (response.status !== 201) {
+          return Promise.reject("404 error");
+        }
+        return response.json();
+      })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(() => this.setState({ displayError: true }));
   }
 
   validateNoteTitle() {
@@ -77,86 +89,99 @@ class AddNote extends React.Component {
   }
 
   render() {
+    const { displayError } = this.state;
+    const noteName = this.state.newNoteName.value;
+    const folder = this.state.selectedFolderId;
+    const isEnabled = noteName.length > 0 && folder !== "";
     return (
-      <div className="add-note-box">
-        <h2>Add New Note</h2>
-        <form onSubmit={() => this.createNewNote()}>
-          <ul className="flex-box">
-            <div className="input">
-              <li className="form-row">
-                <label htmlFor="noteName">Note Name</label>
-                <br />
-                <input
-                  type="text"
-                  name="noteName"
-                  id="noteName"
-                  onChange={(event) =>
-                    this.setState({
-                      newNoteName: {
-                        value: event.target.value,
-                        touched: true,
-                      },
-                    })
-                  }
-                />
-                {this.state.newNoteName.touched && (
-                  <ValidationError message={this.validateNoteTitle()} />
-                )}
-              </li>
-
-              <li className="form-row">
-                <label>
-                  Folder
+      <Fragment>
+        {displayError ? (
+          <h1>Your request was unsuccessful. Please try again.</h1>
+        ) : null}
+        <div className="add-note-box">
+          <h2>Add New Note</h2>
+          <form onSubmit={(event) => this.createNewNote(event)}>
+            <ul className="flex-box">
+              <div className="input">
+                <li className="form-row">
+                  <label htmlFor="noteName">Note Name</label>
                   <br />
-                  <select
-                    value={this.state.selectedFolderId}
-                    onChange={(event) =>
-                      this.setState({ selectedFolderId: event.target.value })
-                    }
-                  >
-                    <option value={""}>Select a folder</option>
-                    {this.context.folders.map((folder) => {
-                      return (
-                        <option key={folder.id} value={folder.id}>
-                          {folder.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <ValidationError message={this.validateFolderId()} />
-                </label>
-              </li>
-            </div>
-            <div className="content">
-              <li className="form-row">
-                <label>
-                  Note Content
-                  <br />
-                  <textarea
-                    value={this.state.newNoteContent.value}
+                  <input
+                    type="text"
+                    name="noteName"
+                    id="noteName"
                     onChange={(event) =>
                       this.setState({
-                        newNoteContent: {
+                        newNoteName: {
                           value: event.target.value,
                           touched: true,
                         },
                       })
                     }
                   />
-                  {this.state.newNoteContent.touched && (
-                    <ValidationError message={this.validateNoteContent()} />
+                  {this.state.newNoteName.touched && (
+                    <ValidationError message={this.validateNoteTitle()} />
                   )}
-                </label>
-              </li>
+                </li>
+
+                <li className="form-row">
+                  <label>
+                    Folder
+                    <br />
+                    <select
+                      value={this.state.selectedFolderId}
+                      onChange={(event) =>
+                        this.setState({ selectedFolderId: event.target.value })
+                      }
+                    >
+                      <option value={""}>Select a folder</option>
+                      {this.context.folders.map((folder) => {
+                        return (
+                          <option key={folder.id} value={folder.id}>
+                            {folder.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <ValidationError message={this.validateFolderId()} />
+                  </label>
+                </li>
+              </div>
+              <div className="content">
+                <li className="form-row">
+                  <label>
+                    Note Content
+                    <br />
+                    <textarea
+                      value={this.state.newNoteContent.value}
+                      onChange={(event) =>
+                        this.setState({
+                          newNoteContent: {
+                            value: event.target.value,
+                            touched: true,
+                          },
+                        })
+                      }
+                    />
+                    {this.state.newNoteContent.touched && (
+                      <ValidationError message={this.validateNoteContent()} />
+                    )}
+                  </label>
+                </li>
+              </div>
+            </ul>
+            <div className="button-box">
+              <button
+                disabled={!isEnabled}
+                className="submit-button"
+                type="submit"
+              >
+                Create Note
+              </button>
             </div>
-          </ul>
-          <div className="button-box">
-            <button className="submit-button" type="submit">
-              Create Note
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </Fragment>
     );
   }
 }
