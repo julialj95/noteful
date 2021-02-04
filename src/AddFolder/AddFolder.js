@@ -46,7 +46,6 @@ class AddFolder extends React.Component {
   render() {
     const { newFolderName, displayError } = this.state;
     const isEnabled = newFolderName.length > 0;
-    console.log(this.state);
     return (
       <Fragment>
         <div id="errorDisplay">
