@@ -44,13 +44,13 @@ class AddNote extends React.Component {
     const dateTime = new Date(date + " " + time);
     const modified = dateTime.toISOString();
 
-    fetch("http://localhost:9090/notes/", {
+    fetch("http://localhost:8000/api/notes", {
       method: "post",
       body: JSON.stringify({
-        name: this.state.newNoteName.value,
-        modified: modified,
+        note_name: this.state.newNoteName.value,
+        date_created: modified,
+        folder: this.state.selectedFolderId,
         content: this.state.newNoteContent.value,
-        folderId: this.state.selectedFolderId,
       }),
       headers: {
         "content-type": "application/json",
@@ -83,7 +83,7 @@ class AddNote extends React.Component {
     }
   }
   validateFolderId() {
-    if (this.state.selectedFolderId === "") {
+    if (this.state.selectedFolderId === null) {
       return "***Please select a folder";
     }
   }
@@ -147,9 +147,9 @@ class AddNote extends React.Component {
                           <option
                             key={folder.id}
                             value={folder.id}
-                            aria-label={folder.name}
+                            aria-label={folder.folder_name}
                           >
-                            {folder.name}
+                            {folder.folder_name}
                           </option>
                         );
                       })}

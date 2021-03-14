@@ -26,7 +26,7 @@ class NotesListSidebar extends React.Component {
           key={index}
         >
           <NavLink to={`/folder/${folder.id}`} className="link" key={index}>
-            {folder.name}
+            {folder.folder_name}
           </NavLink>
           <br />
         </div>

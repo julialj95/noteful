@@ -14,10 +14,10 @@ class AddFolder extends React.Component {
   }
   createNewFolder(event) {
     event.preventDefault();
-    fetch("http://localhost:9090/folders/", {
+    fetch("http://localhost:8000/api/folders", {
       method: "post",
       body: JSON.stringify({
-        name: this.state.newFolderName,
+        folder_name: this.state.newFolderName,
       }),
       headers: {
         "content-type": "application/json",

@@ -19,7 +19,7 @@ class NotesListMain extends React.Component {
     const { notes } = this.context;
     const info = !folderId
       ? notes
-      : notes.filter((note) => note.folderId === folderId);
+      : notes.filter((note) => note.folder === folderId);
     return info;
   }
 
@@ -29,8 +29,8 @@ class NotesListMain extends React.Component {
     const filteredNotes = notesList.map((item, index) => (
       <NoteBox
         key={index}
-        title={item.name}
-        date={item.modified}
+        title={item.note_name}
+        date={item.date_created}
         id={item.id}
       />
     ));

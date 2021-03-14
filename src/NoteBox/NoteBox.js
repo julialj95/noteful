@@ -9,7 +9,7 @@ class NoteBox extends React.Component {
   deleteNoteRequest = () => {
     const noteId = this.props.id;
 
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`http://localhost:8000/api/notes/${noteId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -58,7 +58,7 @@ class NoteBox extends React.Component {
   }
 }
 NoteBox.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   match: PropTypes.shape({

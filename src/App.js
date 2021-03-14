@@ -28,8 +28,8 @@ class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:9090/folders"),
-      fetch("http://localhost:9090/notes"),
+      fetch("http://localhost:8000/api/folders"),
+      fetch("http://localhost:8000/api/notes"),
     ])
       .then(([foldersResponse, notesResponse]) => {
         if (!foldersResponse.ok)
@@ -39,13 +39,16 @@ class App extends React.Component {
         return Promise.all([foldersResponse.json(), notesResponse.json()]);
       })
       .then(([folders, notes]) => {
+        console.log([folders, notes]);
         this.setState({ folders, notes });
-      });
+      })
+      .catch((error) => console.error(error));
   }
 
   renderSidebar() {
     return (
       <>
+        <p></p>
         <ErrorComponent>
           <Route exact path={"/"} component={NotesListSidebar} />
         </ErrorComponent>

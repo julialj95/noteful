@@ -9,7 +9,8 @@ class NoteItemMain extends React.Component {
 
   findNoteMatch(noteId) {
     const { notes } = this.context;
-    const noteMatch = notes.find((note) => note.id === noteId);
+    // eslint-disable-next-line
+    const noteMatch = notes.find((note) => note.id == noteId);
     return noteMatch;
   }
 
@@ -22,9 +23,9 @@ class NoteItemMain extends React.Component {
     ) : (
       <div className="note-item-main">
         <NoteBox
-          title={selectedNote.name}
+          title={selectedNote.note_name}
           id={selectedNote.id}
-          date={selectedNote.modified}
+          date={selectedNote.date_created}
         />
         <p className="note-content">{selectedNote.content}</p>
       </div>
