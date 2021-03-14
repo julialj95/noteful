@@ -16,12 +16,16 @@ class NotesListSidebar extends React.Component {
   render() {
     const { folders } = this.context;
     const { folderId } = this.props.match.params;
+    console.log(this.props.match);
 
     const folderList = folders.map((folder, index) => {
+      console.log(folder.id);
       return (
         <div
           className={
-            folder.id === folderId ? "folderBox highlighted" : "folderBox"
+            folder.id === Number(folderId)
+              ? "folderBox highlighted"
+              : "folderBox"
           }
           key={index}
         >

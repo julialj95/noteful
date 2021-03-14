@@ -9,7 +9,7 @@ class NoteItemSidebar extends React.Component {
   findFolderMatch(note) {
     const { notes, folders } = this.context;
     const noteItem = notes.find((item) => item.id === note.id);
-    const folderId = noteItem.folderId;
+    const folderId = noteItem.folder;
     const folderMatch = folders.find((folder) => folder.id === folderId);
     return folderMatch;
   }
@@ -21,7 +21,7 @@ class NoteItemSidebar extends React.Component {
   }
 
   render() {
-    const { noteId } = this.props.match.params;
+    const noteId = Number(this.props.match.params.noteId);
     const note = this.findNoteMatch(noteId);
     let matchedFolder;
     let folderId;
@@ -33,7 +33,7 @@ class NoteItemSidebar extends React.Component {
     return note ? (
       <div className="sidebar">
         <NavLink to={`/folder/${folderId}`} className="folder-box">
-          {matchedFolder.name}
+          {matchedFolder.folder_name}
         </NavLink>
         <br />
         <button

@@ -9,13 +9,12 @@ class NoteItemMain extends React.Component {
 
   findNoteMatch(noteId) {
     const { notes } = this.context;
-    // eslint-disable-next-line
-    const noteMatch = notes.find((note) => note.id == noteId);
+    const noteMatch = notes.find((note) => note.id === noteId);
     return noteMatch;
   }
 
   render() {
-    const { noteId } = this.props.match.params;
+    const noteId = Number(this.props.match.params.noteId);
     const selectedNote = this.findNoteMatch(noteId);
 
     return !selectedNote ? (
