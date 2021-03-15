@@ -6,9 +6,8 @@ import PropTypes from "prop-types";
 class NoteBox extends React.Component {
   static contextType = NotefulContext;
 
-  deleteNoteRequest = () => {
-    const noteId = this.props.id;
-
+  deleteNoteRequest = (e, noteId) => {
+    e.preventDefault();
     fetch(`http://localhost:8000/api/notes/${noteId}`, {
       method: "DELETE",
       headers: {
@@ -17,7 +16,6 @@ class NoteBox extends React.Component {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        return res.json();
       })
       .then(() => {
         if (this.props.match.path === "/note/:noteId") {
@@ -28,7 +26,27 @@ class NoteBox extends React.Component {
         this.context.deleteNote(noteId);
       })
       .catch((error) => {
-        console.log(error);
+        console.error({ error });
+      });
+  };
+
+  editNoteRequest = (e, noteId) => {
+    e.preventDefault();
+    fetch(`http://localhost:8000/api/notes/${noteId}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        res.json();
+      })
+      .then(() => {
+        this.context.updateNote(noteId);
+      })
+      .catch((error) => {
+        console.error({ error });
       });
   };
 
@@ -46,9 +64,17 @@ class NoteBox extends React.Component {
         </div>
         <div className="bottom-row">
           <p className="date item">Date modified: {formattedDate}</p>
+          {this.props.match.path === "/note/:noteId" ? (
+            <button
+              className="item edit-button"
+              onClick={(e) => this.editNoteRequest(e, id)}
+            >
+              Edit Note
+            </button>
+          ) : null}
           <button
             className="item delete-button"
-            onClick={this.deleteNoteRequest}
+            onClick={(e) => this.deleteNoteRequest(e, id)}
           >
             Delete Note
           </button>

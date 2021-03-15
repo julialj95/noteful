@@ -25,9 +25,10 @@
 h1 {
   flex: 1;
 }
-.delete-button {
+.delete-button, .edit-button {
   width: 5%;
   height: 40px;
+  margin: 5px;
 }
 .link {
   color: white;

@@ -13,25 +13,56 @@ class NotesListSidebar extends React.Component {
   }
   static contextType = NotefulContext;
 
+  deleteFolderRequest = (folderId) => {
+    fetch(`http://localhost:8000/api/folders/${folderId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        console.log(res);
+      })
+      .then(() => {
+        // if (this.props.match.path === "/folders/:folderId") {
+        return this.props.history.push("/");
+      })
+      .then(() => {
+        this.context.deleteFolder(folderId);
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+  };
+
   render() {
     const { folders } = this.context;
-    const { folderId } = this.props.match.params;
-    console.log(this.props.match);
+    const folderId = Number(this.props.match.params.folderId);
 
     const folderList = folders.map((folder, index) => {
-      console.log(folder.id);
       return (
         <div
           className={
-            folder.id === Number(folderId)
-              ? "folderBox highlighted"
-              : "folderBox"
+            folder.id === folderId ? "folderBox highlighted" : "folderBox"
           }
           key={index}
         >
-          <NavLink to={`/folder/${folder.id}`} className="link" key={index}>
-            {folder.folder_name}
-          </NavLink>
+          <div className="link-box">
+            <NavLink to={`/folder/${folder.id}`} className="link" key={index}>
+              {folder.folder_name}
+            </NavLink>
+          </div>
+          {folderId ? (
+            <div className="delete-box">
+              <button
+                className="delete"
+                onClick={() => this.deleteFolderRequest(folderId)}
+              >
+                Delete Folder
+              </button>
+            </div>
+          ) : null}
           <br />
         </div>
       );
