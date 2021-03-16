@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import "./AddFolder.css";
 import ValidationError from "../ValidationError";
+import config from "../config";
 
 class AddFolder extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ class AddFolder extends React.Component {
   }
   createNewFolder(event) {
     event.preventDefault();
-    fetch("http://localhost:8000/api/folders", {
+    fetch(config.API_FOLDERS_ENDPOINT, {
       method: "post",
       body: JSON.stringify({
         folder_name: this.state.newFolderName,

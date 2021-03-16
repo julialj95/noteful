@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./NotesListSidebar.css";
 import NotefulContext from "../NotefulContext";
 import AddFolder from "../AddFolder/AddFolder";
+import config from "../config";
 import PropTypes from "prop-types";
 class NotesListSidebar extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ class NotesListSidebar extends React.Component {
   static contextType = NotefulContext;
 
   deleteFolderRequest = (folderId) => {
-    fetch(`http://localhost:8000/api/folders/${folderId}`, {
+    fetch(config.API_FOLDERS_ENDPOINT + `/${folderId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -22,10 +23,8 @@ class NotesListSidebar extends React.Component {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        console.log(res);
       })
       .then(() => {
-        // if (this.props.match.path === "/folders/:folderId") {
         return this.props.history.push("/");
       })
       .then(() => {

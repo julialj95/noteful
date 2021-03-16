@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import NotefulContext from "../NotefulContext";
 import "./AddNote.css";
 import ValidationError from "../ValidationError";
+import config from "../config";
 
 class AddNote extends React.Component {
   static contextType = NotefulContext;
@@ -44,7 +45,7 @@ class AddNote extends React.Component {
     const dateTime = new Date(date + " " + time);
     const modified = dateTime.toISOString();
 
-    fetch("http://localhost:8000/api/notes", {
+    fetch(config.API_NOTES_ENDPOINT, {
       method: "post",
       body: JSON.stringify({
         note_name: this.state.newNoteName.value,

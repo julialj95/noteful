@@ -8,6 +8,7 @@ import NoteItemSidebar from "./NoteItemSidebar/NoteItemSidebar";
 import NoteItemMain from "./NoteItemMain/NoteItemMain";
 import NotefulContext from "./NotefulContext";
 import ErrorComponent from "./ErrorComponent";
+import config from "./config";
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +21,7 @@ class App extends React.Component {
     this.renderMain = this.renderMain.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.deleteFolder = this.deleteFolder.bind(this);
-    // this.updateNote = this.updateNote.bind(this);
+    this.updateNote = this.updateNote.bind(this);
   }
 
   deleteNote(noteId) {
@@ -33,19 +34,24 @@ class App extends React.Component {
       (folder) => folder.id !== folderId
     );
     const newNotesList = this.state.notes.filter((note) => {
-      console.log("note.folder", note.folder, "folderId", folderId);
       return note.folder !== folderId;
     });
-    console.log(newNotesList);
     this.setState({ notes: newNotesList, folders: newFoldersList });
   }
 
-  // updateNote(noteId) {}
+  updateNote = (newNote) => {
+    const newNotes = this.state.notes.map((note) =>
+      note.id === newNote.id ? newNote : note
+    );
+    this.setState({
+      notes: newNotes,
+    });
+  };
 
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:8000/api/folders"),
-      fetch("http://localhost:8000/api/notes"),
+      fetch(config.API_FOLDERS_ENDPOINT),
+      fetch(config.API_NOTES_ENDPOINT),
     ])
       .then(([foldersResponse, notesResponse]) => {
         if (!foldersResponse.ok)
@@ -102,6 +108,7 @@ class App extends React.Component {
       folders: this.state.folders,
       deleteNote: this.deleteNote,
       deleteFolder: this.deleteFolder,
+      updateNote: this.updateNote,
     };
     return (
       <>

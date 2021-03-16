@@ -19,6 +19,12 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.top-section {
+  flex-grow: 1
+}
+.bottom-section {
+  flex-grow: 1
+}
 .item {
   flex-grow: 1;
 }
