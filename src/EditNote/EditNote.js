@@ -22,6 +22,7 @@ class EditNote extends React.Component {
       method: "GET",
       headers: {
         type: "application/json",
+        Authorization: "Bearer " + config.API_KEY,
       },
     })
       .then((res) => {
@@ -83,6 +84,7 @@ class EditNote extends React.Component {
       body: JSON.stringify(newNote),
       headers: {
         "content-type": "application/json",
+        Authorization: "Bearer " + config.API_KEY,
       },
     })
       .then((res) => {
