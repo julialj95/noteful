@@ -5,8 +5,14 @@
       "src": "^/static/(.*)",
       "dest": "/static/$1"
     },
-    {"src": "/manifest.json",
-    "dest": "/manifest.json"},
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "/paper-img.jpg",
+      "dest": "/paper-img.jpg"
+    },
     {
       "src": ".*",
       "dest": "/index.html"
