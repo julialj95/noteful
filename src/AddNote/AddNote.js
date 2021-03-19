@@ -56,6 +56,7 @@ class AddNote extends React.Component {
       headers: {
         "content-type": "application/json",
         Accept: "application/json",
+        Authorization: "Bearer " + config.API_KEY,
       },
     })
       .then((response) => {

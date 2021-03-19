@@ -50,8 +50,12 @@ class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(config.API_FOLDERS_ENDPOINT),
-      fetch(config.API_NOTES_ENDPOINT),
+      fetch(config.API_FOLDERS_ENDPOINT, {
+        headers: { Authorization: "Bearer " + config.API_KEY },
+      }),
+      fetch(config.API_NOTES_ENDPOINT, {
+        headers: { Authorization: "Bearer " + config.API_KEY },
+      }),
     ])
       .then(([foldersResponse, notesResponse]) => {
         if (!foldersResponse.ok)

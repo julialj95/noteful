@@ -18,6 +18,7 @@ class NoteBox extends React.Component {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
+        Authorization: "Bearer " + config.API_KEY,
       },
     })
       .then((res) => {
